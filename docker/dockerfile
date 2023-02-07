@@ -1,4 +1,4 @@
-FROM php:5.6-fpm-alpine
+FROM php:7.1-fpm-alpine
 
 ARG USERNAME=www-data
 ARG GROUPNAME=www-data
@@ -17,7 +17,10 @@ RUN chown -R ${USERNAME}:${GROUPNAME} /var/www/html
 
 WORKDIR /var/www/html
 USER ${USERNAME}
-RUN composer install --prefer-dist --no-suggest
+
+# symfony/flex <1.17 is abandoned. Override with newer version
+RUN composer config allow-plugins.symfony/flex true
+RUN composer req symfony/flex:^1.17
 
 # symfony/phpunit-bridge:^3.0 can't fetch phpunit v5.
 # Override with newer version
