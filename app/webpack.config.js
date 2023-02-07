@@ -10,15 +10,18 @@ Encore
         "jQuery.tagsinput": "bootstrap-tagsinput"
     })
     .enableSassLoader()
-    .enableVersioning()
-    .addEntry('js/app', './assets/js/app.js')
-    .addEntry('js/login', './assets/js/login.js')
-    .addEntry('js/admin', './assets/js/admin.js')
-    .addEntry('js/search', './assets/js/search.js')
-    .addStyleEntry('css/app', ['./assets/scss/app.scss'])
-    .addStyleEntry('css/admin', ['./assets/scss/admin.scss'])
+    .enableVersioning(Encore.isProduction())
+    .addEntry('app', './assets/js/app.js')
+    .addEntry('login', './assets/js/login.js')
+    .addEntry('admin', './assets/js/admin.js')
+    .addEntry('search', './assets/js/search.js')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
+    .enableIntegrityHashes()
+    .configureBabel(null, {
+        useBuiltIns: 'usage',
+        corejs: 3,
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();
