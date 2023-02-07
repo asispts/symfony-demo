@@ -23,3 +23,6 @@ USER ${USERNAME}
 RUN composer config allow-plugins.symfony/flex true
 RUN composer req symfony/flex:^1.17 \
     symfony/orm-pack:^2.0
+
+# symfony/phpunit-bridge still can't fetch phpunit v5
+RUN composer req --dev symfony/phpunit-bridge:^4.0
