@@ -22,4 +22,6 @@ USER ${USERNAME}
 RUN composer config allow-plugins.symfony/flex true
 RUN composer req symfony/flex:^1.17
 
-RUN composer install --prefer-dist
+# symfony/phpunit-bridge:^3.0 can't fetch phpunit v5.
+# Override with newer version
+RUN composer req --dev symfony/phpunit-bridge:^4.0
