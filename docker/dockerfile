@@ -9,6 +9,11 @@ RUN if getent passwd ${USERNAME} > /dev/null; then deluser ${USERNAME}; fi &&\
     addgroup -g ${NEW_GROUP_ID} ${GROUPNAME} &&\
     adduser -D -G ${GROUPNAME} ${USERNAME}
 
+RUN apk add --update --no-cache $PHPIZE_DEPS
+
+RUN apk add --no-cache icu-dev \
+    && docker-php-ext-install intl
+
 RUN wget https://getcomposer.org/download/latest-2.2.x/composer.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 
 COPY docker/php.ini /usr/local/etc/php/conf.d/php.ini
