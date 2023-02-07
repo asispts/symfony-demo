@@ -1,413 +1,363 @@
 <?xml version="1.0"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <file source-language="en" target-language="tr" datatype="plaintext" original="file.ext">
         <body>
             <trans-unit id="note">
                 <source>note</source>
-                <target>NOTE</target>
+                <target>NOT</target>
             </trans-unit>
             <trans-unit id="tip">
                 <source>tip</source>
-                <target>TIP</target>
+                <target>TÜYO</target>
             </trans-unit>
             <trans-unit id="not_available">
                 <source>not_available</source>
-                <target>Not available</target>
+                <target>Uygun değil</target>
             </trans-unit>
             <trans-unit id="mit_license">
                 <source>mit_license</source>
-                <target>MIT License</target>
+                <target>MİT Lisansı</target>
             </trans-unit>
 
             <trans-unit id="http_error.name">
                 <source>http_error.name</source>
-                <target>Error %status_code%</target>
+                <target>Hata %status_code%</target>
             </trans-unit>
             <trans-unit id="http_error.description">
                 <source>http_error.description</source>
-                <target>There was an unknown error (HTTP %status_code%) that prevented to complete your request.</target>
+                <target>İsteğinizi tamamlamayı engelleyen bilinmeyen bir hata oluştu (HTTP% status_code%).</target>
             </trans-unit>
             <trans-unit id="http_error.suggestion">
                 <source>http_error.suggestion</source>
-                <target><![CDATA[Try loading this page again in some minutes or <a href="%url%">go back to the homepage</a>.]]></target>
+                <target><![CDATA[Bu sayfayı birkaç dakika içinde tekrar yüklemeyi veya <a href="%url%">ana sayfaya geri dönmeyi</a> deneyin.]]></target>
             </trans-unit>
             <trans-unit id="http_error_403.description">
                 <source>http_error_403.description</source>
-                <target>You don't have permission to access to this resource.</target>
+                <target>Bu kaynağa erişim izniniz yok.</target>
             </trans-unit>
             <trans-unit id="http_error_403.suggestion">
                 <source>http_error_403.suggestion</source>
-                <target>Ask your manager or system administrator to grant you access to this resource.</target>
+                <target>Yöneticinize veya sistem yöneticinize bu kaynağa erişim izni vermesini isteyin.</target>
             </trans-unit>
             <trans-unit id="http_error_404.description">
                 <source>http_error_404.description</source>
-                <target>We couldn't find the page you requested.</target>
+                <target>İstediğiniz sayfayı bulamadık.</target>
             </trans-unit>
             <trans-unit id="http_error_404.suggestion">
                 <source>http_error_404.suggestion</source>
-                <target><![CDATA[Check out any misspelling in the URL or <a href="%url%">go back to the homepage</a>.]]></target>
+                <target><![CDATA[URL'de yanlış yazımları kontrol edin veya <a href="%url%">ana sayfaya geri dönün</a>.]]></target>
             </trans-unit>
             <trans-unit id="http_error_500.description">
                 <source>http_error_500.description</source>
-                <target>There was an internal server error.</target>
+                <target>Bir iç sunucu hatası vardı.</target>
             </trans-unit>
             <trans-unit id="http_error_500.suggestion">
                 <source>http_error_500.suggestion</source>
-                <target><![CDATA[Try loading this page again in some minutes or <a href="%url%">go back to the homepage</a>.]]></target>
+                <target><![CDATA[Bu sayfayı birkaç dakika içinde tekrar yüklemeyi veya <a href="%url%">ana sayfaya geri dönmeyi</a> deneyin.]]></target>
             </trans-unit>
 
             <trans-unit id="title.homepage">
                 <source>title.homepage</source>
-                <target><![CDATA[Welcome to the <strong>Symfony Demo</strong> application]]></target>
+                <target><![CDATA[<Strong> Symfony Demo </strong> uygulamasına hoş geldiniz]]></target>
             </trans-unit>
             <trans-unit id="title.source_code">
                 <source>title.source_code</source>
-                <target>Source code used to render this page</target>
+                <target>Bu sayfayı oluşturmak için kullanılan kaynak kodu</target>
             </trans-unit>
             <trans-unit id="title.controller_code">
                 <source>title.controller_code</source>
-                <target>Controller code</target>
+                <target>Denetleyici kodu</target>
             </trans-unit>
             <trans-unit id="title.twig_template_code">
                 <source>title.twig_template_code</source>
-                <target>Twig template code</target>
+                <target>Twig şablon kodu</target>
             </trans-unit>
             <trans-unit id="title.login">
                 <source>title.login</source>
-                <target>Secure Sign in</target>
+                <target>Güvenli Giriş</target>
             </trans-unit>
             <trans-unit id="title.post_list">
                 <source>title.post_list</source>
-                <target>Post List</target>
+                <target>Gönderi Listesi</target>
             </trans-unit>
             <trans-unit id="title.edit_post">
                 <source>title.edit_post</source>
-                <target>Edit post #%id%</target>
+                <target>Gönderiyi düzenle #%id%</target>
             </trans-unit>
             <trans-unit id="title.add_comment">
                 <source>title.add_comment</source>
-                <target>Add a comment</target>
+                <target>Yorum ekle</target>
             </trans-unit>
             <trans-unit id="title.comment_error">
                 <source>title.comment_error</source>
-                <target>There was an error publishing your comment</target>
-            </trans-unit>
-            <trans-unit id="title.edit_user">
-                <source>title.edit_user</source>
-                <target>Edit user</target>
-            </trans-unit>
-            <trans-unit id="title.change_password">
-                <source>title.change_password</source>
-                <target>Change password</target>
+                <target>Yorumunuz yayınlanırken bir hata oluştu</target>
             </trans-unit>
 
             <trans-unit id="action.show">
                 <source>action.show</source>
-                <target>Show</target>
+                <target>Göster</target>
             </trans-unit>
             <trans-unit id="action.show_post">
                 <source>action.show_post</source>
-                <target>Show post</target>
+                <target>Gönderiyi göster</target>
             </trans-unit>
             <trans-unit id="action.show_code">
                 <source>action.show_code</source>
-                <target>Show code</target>
+                <target>Kodu göster</target>
             </trans-unit>
             <trans-unit id="action.edit">
                 <source>action.edit</source>
-                <target>Edit</target>
+                <target>Düzenle</target>
             </trans-unit>
             <trans-unit id="action.edit_post">
                 <source>action.edit_post</source>
-                <target>Edit post</target>
+                <target>Gönderiyi düzenle</target>
             </trans-unit>
             <trans-unit id="action.save">
                 <source>action.save</source>
-                <target>Save changes</target>
+                <target>Değişiklikleri kaydet</target>
             </trans-unit>
             <trans-unit id="action.delete_post">
                 <source>action.delete_post</source>
-                <target>Delete post</target>
+                <target>Gönderiyi sil</target>
             </trans-unit>
             <trans-unit id="delete_post_modal.title">
                 <source>delete_post_modal.title</source>
-                <target>Are you sure you want to delete this post?</target>
+                <target>Bu gönderiyi silmek istediğinizden emin misiniz?</target>
             </trans-unit>
             <trans-unit id="delete_post_modal.body">
                 <source>delete_post_modal.body</source>
-                <target>This action cannot be undone.</target>
+                <target>Bu işlem geri alınamaz.</target>
             </trans-unit>
             <trans-unit id="label.delete_post">
                 <source>label.delete_post</source>
-                <target>Delete post</target>
+                <target>Gönderiyi sil</target>
             </trans-unit>
             <trans-unit id="label.cancel">
                 <source>label.cancel</source>
-                <target>Cancel</target>
+                <target>İptal</target>
             </trans-unit>
             <trans-unit id="action.create_post">
                 <source>action.create_post</source>
-                <target>Create a new post</target>
+                <target>Yeni bir gönderi oluştur</target>
             </trans-unit>
             <trans-unit id="label.create_post">
                 <source>label.create_post</source>
-                <target>Create post</target>
+                <target>Gönderi oluştur</target>
             </trans-unit>
             <trans-unit id="label.save_and_create_new">
                 <source>label.save_and_create_new</source>
-                <target>Save and create new</target>
+                <target>Kaydet ve yeni oluştur</target>
             </trans-unit>
             <trans-unit id="action.back_to_list">
                 <source>action.back_to_list</source>
-                <target>Back to the post list</target>
+                <target>Gönderi listesine geri dön</target>
             </trans-unit>
             <trans-unit id="action.publish_comment">
                 <source>action.publish_comment</source>
-                <target>Publish comment</target>
+                <target>Yorumu yayınla</target>
             </trans-unit>
             <trans-unit id="action.sign_in">
                 <source>action.sign_in</source>
-                <target>Sign in</target>
+                <target>Giriş yap</target>
             </trans-unit>
             <trans-unit id="action.browse_app">
                 <source>action.browse_app</source>
-                <target>Browse application</target>
+                <target>Uygulamaya göz at</target>
             </trans-unit>
             <trans-unit id="action.browse_admin">
                 <source>action.browse_admin</source>
-                <target>Browse backend</target>
-            </trans-unit>
-            <trans-unit id="action.edit_user">
-                <source>action.edit_user</source>
-                <target>Edit user</target>
-            </trans-unit>
-            <trans-unit id="action.change_password">
-                <source>action.change_password</source>
-                <target>Change password</target>
+                <target>Yönetim paneline göz at</target>
             </trans-unit>
 
             <trans-unit id="label.title">
                 <source>label.title</source>
-                <target>Title</target>
+                <target>Başlık</target>
             </trans-unit>
             <trans-unit id="label.author">
                 <source>label.author</source>
-                <target>Author</target>
+                <target>Yazar</target>
             </trans-unit>
             <trans-unit id="label.author_email">
                 <source>label.author_email</source>
-                <target>Author email</target>
+                <target>Yazar e-postası</target>
             </trans-unit>
             <trans-unit id="label.username">
                 <source>label.username</source>
-                <target>Username</target>
-            </trans-unit>
-            <trans-unit id="label.fullname">
-                <source>label.fullname</source>
-                <target>Fullname</target>
-            </trans-unit>
-            <trans-unit id="label.email">
-                <source>label.email</source>
-                <target>Email</target>
+                <target>Kullanıcı adı</target>
             </trans-unit>
             <trans-unit id="label.password">
                 <source>label.password</source>
-                <target>Password</target>
-            </trans-unit>
-            <trans-unit id="label.current_password">
-                <source>label.current_password</source>
-                <target>Current password</target>
-            </trans-unit>
-            <trans-unit id="label.new_password">
-                <source>label.new_password</source>
-                <target>New password</target>
-            </trans-unit>
-            <trans-unit id="label.new_password_confirm">
-                <source>label.new_password_confirm</source>
-                <target>Confirm password</target>
+                <target>Şifre</target>
             </trans-unit>
             <trans-unit id="label.role">
                 <source>label.role</source>
-                <target>Role</target>
+                <target>Rol</target>
             </trans-unit>
             <trans-unit id="label.content">
                 <source>label.content</source>
-                <target>Content</target>
+                <target>İçerik</target>
             </trans-unit>
             <trans-unit id="label.summary">
                 <source>label.summary</source>
-                <target>Summary</target>
+                <target>Özet</target>
             </trans-unit>
             <trans-unit id="label.published_at">
                 <source>label.published_at</source>
-                <target>Published at</target>
+                <target>Yayınlandı</target>
             </trans-unit>
             <trans-unit id="label.tags">
                 <source>label.tags</source>
-                <target>Tags</target>
+                <target>Etiketler</target>
             </trans-unit>
             <trans-unit id="label.actions">
                 <source>label.actions</source>
-                <target>Actions</target>
+                <target>İşlemler</target>
             </trans-unit>
             <trans-unit id="title.post_new">
                 <source>title.post_new</source>
-                <target>Post creation</target>
+                <target>Gönderi oluluşturma</target>
             </trans-unit>
             <trans-unit id="action.edit_contents">
                 <source>action.edit_contents</source>
-                <target>Edit contents</target>
+                <target>İçeriği düzenle</target>
             </trans-unit>
 
             <trans-unit id="menu.toggle_nav">
                 <source>menu.toggle_nav</source>
-                <target>Toggle navigation</target>
+                <target>Navigasyonu değiştir</target>
             </trans-unit>
             <trans-unit id="menu.choose_language">
                 <source>menu.choose_language</source>
-                <target>Choose language</target>
+                <target>Dil seç</target>
             </trans-unit>
             <trans-unit id="menu.post_list">
                 <source>menu.post_list</source>
-                <target>Post list</target>
+                <target>Gönderi listesi</target>
             </trans-unit>
             <trans-unit id="menu.back_to_blog">
                 <source>menu.back_to_blog</source>
-                <target>Back to blog</target>
+                <target>Blog'a dön</target>
             </trans-unit>
             <trans-unit id="menu.homepage">
                 <source>menu.homepage</source>
-                <target>Homepage</target>
+                <target>Anasayfa</target>
             </trans-unit>
             <trans-unit id="menu.admin">
                 <source>menu.admin</source>
-                <target>Backend</target>
-            </trans-unit>
-            <trans-unit id="menu.user">
-                <source>menu.user</source>
-                <target>Account</target>
+                <target>Yönetim paneli</target>
             </trans-unit>
             <trans-unit id="menu.logout">
                 <source>menu.logout</source>
-                <target>Logout</target>
+                <target>Çıkış</target>
             </trans-unit>
             <trans-unit id="menu.rss">
                 <source>menu.rss</source>
-                <target>Blog Posts RSS</target>
+                <target>Blog Yazıları RSS</target>
             </trans-unit>
             <trans-unit id="menu.search">
                 <source>menu.search</source>
-                <target>Search</target>
+                <target>Arama</target>
             </trans-unit>
 
             <trans-unit id="post.to_publish_a_comment">
                 <source>post.to_publish_a_comment</source>
-                <target>to publish a comment</target>
+                <target>yorum ekle</target>
             </trans-unit>
             <trans-unit id="post.num_comments">
                 <source>post.num_comments</source>
-                <target>%count% comment|%count% comments</target>
+                <target>%count% yorum</target>
             </trans-unit>
             <trans-unit id="post.commented_on">
                 <source>post.commented_on</source>
-                <target>commented on</target>
+                <target>yorum yaptı</target>
             </trans-unit>
             <trans-unit id="post.no_comments">
                 <source>post.no_comments</source>
-                <target>Be the first to comment on this post.</target>
+                <target>Bu yazıya ilk yorum yapan siz olun.</target>
             </trans-unit>
             <trans-unit id="post.no_posts_found">
                 <source>post.no_posts_found</source>
-                <target>No posts found.</target>
+                <target>Gönderi bulunamadı.</target>
             </trans-unit>
             <trans-unit id="post.created_successfully">
                 <source>post.created_successfully</source>
-                <target>Post created successfully!</target>
+                <target>Gönderi başarıyla oluşturuldu!</target>
             </trans-unit>
             <trans-unit id="post.updated_successfully">
                 <source>post.updated_successfully</source>
-                <target>Post updated successfully!</target>
+                <target>Gönderi başarıyla güncellendi!</target>
             </trans-unit>
             <trans-unit id="post.deleted_successfully">
                 <source>post.deleted_successfully</source>
-                <target>Post deleted successfully!</target>
+                <target>Gönderi başarıyla silindi!</target>
             </trans-unit>
             <trans-unit id="post.search_for">
                 <source>post.search_for</source>
-                <target>Search for...</target>
+                <target>Arama...</target>
             </trans-unit>
             <trans-unit id="post.search_no_results">
                 <source>post.search_no_results</source>
-                <target>No results found</target>
-            </trans-unit>
-
-            <trans-unit id="user.updated_successfully">
-                <source>user.updated_successfully</source>
-                <target>User updated successfully!</target>
+                <target>Sonuç bulunamadı</target>
             </trans-unit>
 
             <trans-unit id="notification.comment_created">
                 <source>notification.comment_created</source>
-                <target>Your post received a comment!</target>
+                <target>Gönderiniz bir yorum aldı!</target>
             </trans-unit>
             <trans-unit id="notification.comment_created.description">
                 <source>notification.comment_created.description</source>
-                <target><![CDATA[Your post "%title%" has received a new comment. You can read the comment by following <a href="%link%">this link</a>]]></target>
+                <target><![CDATA[Gönderiniz "% title%" yeni bir yorum aldı. Yorumu <a href="%link%">bu bağlantıyı</a> takip ederek okuyabilirsiniz.]]></target>
             </trans-unit>
 
             <trans-unit id="help.app_description">
                 <source>help.app_description</source>
-                <target><![CDATA[This is a <strong>demo application</strong> built in the Symfony Framework to illustrate the recommended way of developing Symfony applications.]]></target>
+                <target><![CDATA[Bu, Symfony uygulamalarının geliştirilmesinde önerilen yöntemleri göstermek için, Symfony Framework'de oluşturulmuş bir <strong>demo uygulamasıdır</strong>.]]></target>
             </trans-unit>
             <trans-unit id="help.show_code">
                 <source>help.show_code</source>
-                <target><![CDATA[Click on this button to show the source code of the <strong>Controller</strong> and <strong>template</strong> used to render this page.]]></target>
+                <target><![CDATA[Bu sayfayı oluşturmak için kullanılan <strong>Denetleyici</strong> ve <strong>şablon</strong> kaynak kodunu göstermek için bu butona tıklayın.]]></target>
             </trans-unit>
             <trans-unit id="help.browse_app">
                 <source>help.browse_app</source>
-                <target><![CDATA[Browse the <strong>public section</strong> of the demo application.]]></target>
+                <target><![CDATA[Demo uygulamasının <strong>genel bölümüne</strong> göz atın.]]></target>
             </trans-unit>
             <trans-unit id="help.browse_admin">
                 <source>help.browse_admin</source>
-                <target><![CDATA[Browse the <strong>admin backend</strong> of the demo application.]]></target>
+                <target><![CDATA[Demo uygulamasının <strong>yönetim paneline</strong> göz atın.]]></target>
             </trans-unit>
             <trans-unit id="help.login_users">
                 <source>help.login_users</source>
-                <target>Try either of the following users</target>
+                <target>Aşağıdaki kullanıcılardan birini deneyin</target>
             </trans-unit>
             <trans-unit id="help.role_user">
                 <source>help.role_user</source>
-                <target>regular user</target>
+                <target>normal kullanıcı</target>
             </trans-unit>
             <trans-unit id="help.role_admin">
                 <source>help.role_admin</source>
-                <target>administrator</target>
+                <target>yönetici</target>
             </trans-unit>
             <trans-unit id="help.reload_fixtures">
                 <source>help.reload_fixtures</source>
-                <target>If these users don't work, reload application fixtures by running this command from the terminal:</target>
+                <target>Bu kullanıcılar işe yaramazsa, bu komutu terminalden çalıştırarak uygulama datasını yeniden yükleyin:</target>
             </trans-unit>
             <trans-unit id="help.add_user">
                 <source>help.add_user</source>
-                <target>If you want to create new users, run this other command:</target>
+                <target>Yeni kullanıcılar oluşturmak isterseniz, bu komutu çalıştırın:</target>
             </trans-unit>
             <trans-unit id="help.more_information">
                 <source>help.more_information</source>
-                <target><![CDATA[For more information, check out the <a href="https://symfony.com/doc">Symfony doc</a>.]]></target>
-            </trans-unit>
-
-            <trans-unit id="info.change_password">
-                <source>info.change_password</source>
-                <target>After changing your password, you will be logged out of the application.</target>
+                <target><![CDATA[Daha fazla bilgi için <a href="https://symfony.com/doc">Symfony doc sayfasına bakın.</a>.]]></target>
             </trans-unit>
 
             <trans-unit id="rss.title">
                 <source>rss.title</source>
-                <target>Symfony Demo blog</target>
+                <target>Symfony Demo blogu</target>
             </trans-unit>
             <trans-unit id="rss.description">
                 <source>rss.description</source>
-                <target>Most recent posts published on the Symfony Demo blog</target>
+                <target>Symfony Demo blogunda yayınlanan son yazılar</target>
             </trans-unit>
         </body>
     </file>
