@@ -9,7 +9,7 @@ to develop Symfony applications following the recommended best practices.
 Requirements
 ------------
 
-  * PHP 5.5.9 or higher;
+  * PHP 7.1.3 or higher;
   * PDO-SQLite PHP extension enabled;
   * and the [usual Symfony application requirements](https://symfony.com/doc/current/reference/requirements.html).
 
@@ -68,16 +68,12 @@ terminal.
 > For more details, see:
 > https://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html
 
-Troubleshooting
----------------
+Testing
+-------
 
-The current Symfony Demo application uses Symfony 3.x version. If you want to
-use the legacy Symfony 2.8 version, clone the Git repository and checkout the
-`v0.8.4` tag, which is the last one compatible with Symfony 2.8:
+Execute this command to run tests:
 
 ```bash
-$ git clone https://github.com/symfony/symfony-demo symfony_demo
 $ cd symfony_demo/
-$ git checkout tags/v0.8.4 -b v0.8.4
-$ composer install
+$ ./vendor/bin/simple-phpunit
 ```
