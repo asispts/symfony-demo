@@ -19,3 +19,8 @@ Because:
   docker-compose up -d
   ```
   then access the application in your browser at http://localhost:8080.
+
+## Changelog
+  ### v1.0
+  - `PHP: v5.6`
+  - `Symfony: v3.2`
