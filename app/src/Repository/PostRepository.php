@@ -12,7 +12,8 @@
 namespace App\Repository;
 
 use App\Entity\Post;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
@@ -21,14 +22,19 @@ use Pagerfanta\Pagerfanta;
  * This custom Doctrine repository contains some methods which are useful when
  * querying for blog post information.
  *
- * See https://symfony.com/doc/current/book/doctrine.html#custom-repository-classes
+ * See https://symfony.com/doc/current/doctrine/repository.html
  *
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class PostRepository extends EntityRepository
+class PostRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Post::class);
+    }
+
     public function findLatest(int $page = 1): Pagerfanta
     {
         $query = $this->getEntityManager()
@@ -88,7 +94,7 @@ class PostRepository extends EntityRepository
      */
     private function sanitizeSearchQuery(string $query): string
     {
-        return preg_replace('/[^[:alnum:] ]/', '', trim(preg_replace('/[[:space:]]+/', ' ', $query)));
+        return trim(preg_replace('/[[:space:]]+/', ' ', $query));
     }
 
     /**
@@ -96,7 +102,7 @@ class PostRepository extends EntityRepository
      */
     private function extractSearchTerms(string $searchQuery): array
     {
-        $terms = array_unique(explode(' ', mb_strtolower($searchQuery)));
+        $terms = array_unique(explode(' ', $searchQuery));
 
         return array_filter($terms, function ($term) {
             return 2 <= mb_strlen($term);

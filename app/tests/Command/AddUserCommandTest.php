@@ -14,6 +14,7 @@ namespace App\Tests\Command;
 use App\Command\AddUserCommand;
 use App\Entity\User;
 use App\Utils\Validator;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -45,7 +46,7 @@ class AddUserCommandTest extends KernelTestCase
      * This test provides all the arguments required by the command, so the
      * command runs non-interactively and it won't ask for any argument.
      */
-    public function testCreateUserNonInteractive($isAdmin)
+    public function testCreateUserNonInteractive(bool $isAdmin)
     {
         $input = $this->userData;
         if ($isAdmin) {
@@ -64,7 +65,7 @@ class AddUserCommandTest extends KernelTestCase
      * arguments.
      * See https://symfony.com/doc/current/components/console/helpers/questionhelper.html#testing-a-command-that-expects-input
      */
-    public function testCreateUserInteractive($isAdmin)
+    public function testCreateUserInteractive(bool $isAdmin)
     {
         $this->executeCommand(
         // these are the arguments (only 1 is passed, the rest are missing)
@@ -91,7 +92,7 @@ class AddUserCommandTest extends KernelTestCase
      * This helper method checks that the user was correctly created and saved
      * in the database.
      */
-    private function assertUserCreated($isAdmin)
+    private function assertUserCreated(bool $isAdmin)
     {
         $container = self::$kernel->getContainer();
 
@@ -117,7 +118,9 @@ class AddUserCommandTest extends KernelTestCase
         self::bootKernel();
 
         $container = self::$kernel->getContainer();
-        $command = new AddUserCommand($container->get('doctrine')->getManager(), $container->get('security.password_encoder'), new Validator());
+        /** @var Registry $doctrine */
+        $doctrine = $container->get('doctrine');
+        $command = new AddUserCommand($doctrine->getManager(), $container->get('security.password_encoder'), new Validator(), $doctrine->getRepository(User::class));
         $command->setApplication(new Application(self::$kernel));
 
         $commandTester = new CommandTester($command);

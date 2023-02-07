@@ -23,7 +23,7 @@
         <env name="MAILER_URL" value="null://localhost" />
         <!-- ###- symfony/swiftmailer-bundle ### -->
 
-        <server name="SYMFONY_PHPUNIT_VERSION" value="5.7" />
+        <server name="SYMFONY_PHPUNIT_VERSION" value="6.5" />
     </php>
 
     <testsuites>

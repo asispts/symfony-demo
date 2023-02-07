@@ -11,7 +11,7 @@
 
 namespace App\Repository;
 
-use App\Entity\User;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -22,13 +22,12 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  *
  * See https://symfony.com/doc/current/doctrine/repository.html
  *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class UserRepository extends ServiceEntityRepository
+class TagRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, User::class);
+        parent::__construct($registry, Tag::class);
     }
 }
