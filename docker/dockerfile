@@ -17,4 +17,4 @@ RUN chown -R ${USERNAME}:${GROUPNAME} /var/www/html
 
 WORKDIR /var/www/html
 USER ${USERNAME}
-RUN composer install --prefer-dist --no-suggest
+RUN composer install --prefer-dist
