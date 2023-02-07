@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6853b03cb74b8410b1d6a1f61c2ab864",
+    "content-hash": "8a73d89a2f0a835afb6cece34b992da7",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -4932,16 +4932,16 @@
         },
         {
             "name": "white-october/pagerfanta-bundle",
-            "version": "v1.2.2",
+            "version": "v1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/whiteoctober/WhiteOctoberPagerfantaBundle.git",
-                "reference": "7aa8d797c46d46a3e950fbfa7e78de854658cb7b"
+                "reference": "3a2f39fecde9b8aefe7c9cbd0baf06bc72ef3e5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/whiteoctober/WhiteOctoberPagerfantaBundle/zipball/7aa8d797c46d46a3e950fbfa7e78de854658cb7b",
-                "reference": "7aa8d797c46d46a3e950fbfa7e78de854658cb7b",
+                "url": "https://api.github.com/repos/whiteoctober/WhiteOctoberPagerfantaBundle/zipball/3a2f39fecde9b8aefe7c9cbd0baf06bc72ef3e5e",
+                "reference": "3a2f39fecde9b8aefe7c9cbd0baf06bc72ef3e5e",
                 "shasum": ""
             },
             "require": {
@@ -4986,7 +4986,7 @@
                 "page",
                 "paging"
             ],
-            "time": "2018-10-02T13:23:39+00:00"
+            "time": "2018-12-05T16:58:18+00:00"
         },
         {
             "name": "zendframework/zend-code",
