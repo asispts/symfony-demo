@@ -15,12 +15,13 @@ use App\Entity\Comment;
 use App\Entity\Post;
 use App\Events;
 use App\Form\CommentType;
+use App\Repository\PostRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +35,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class BlogController extends Controller
+class BlogController extends AbstractController
 {
     /**
      * @Route("/", defaults={"page": "1", "_format"="html"}, name="blog_index")
@@ -47,15 +48,14 @@ class BlogController extends Controller
      * Content-Type header for the response.
      * See https://symfony.com/doc/current/quick_tour/the_controller.html#using-formats
      */
-    public function indexAction(int $page, string $_format): Response
+    public function index(int $page, string $_format, PostRepository $posts): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository(Post::class)->findLatest($page);
+        $latestPosts = $posts->findLatest($page);
 
         // Every template name also has two extensions that specify the format and
         // engine for that template.
         // See https://symfony.com/doc/current/templating.html#template-suffix
-        return $this->render('blog/index.'.$_format.'.twig', ['posts' => $posts]);
+        return $this->render('blog/index.'.$_format.'.twig', ['posts' => $latestPosts]);
     }
 
     /**
@@ -67,7 +67,7 @@ class BlogController extends Controller
      * value given in the route.
      * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
      */
-    public function postShowAction(Post $post): Response
+    public function postShow(Post $post): Response
     {
         // Symfony's 'dump()' function is an improved version of PHP's 'var_dump()' but
         // it's not available in the 'prod' environment to prevent leaking sensitive information.
@@ -89,7 +89,7 @@ class BlogController extends Controller
      * (postSlug) doesn't match any of the Doctrine entity properties (slug).
      * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html#doctrine-converter
      */
-    public function commentNewAction(Request $request, Post $post, EventDispatcherInterface $eventDispatcher): Response
+    public function commentNew(Request $request, Post $post, EventDispatcherInterface $eventDispatcher): Response
     {
         $comment = new Comment();
         $comment->setAuthor($this->getUser());
@@ -134,7 +134,7 @@ class BlogController extends Controller
      * The "id" of the Post is passed in and then turned into a Post object
      * automatically by the ParamConverter.
      */
-    public function commentFormAction(Post $post): Response
+    public function commentForm(Post $post): Response
     {
         $form = $this->createForm(CommentType::class);
 
@@ -148,7 +148,7 @@ class BlogController extends Controller
      * @Route("/search", name="blog_search")
      * @Method("GET")
      */
-    public function searchAction(Request $request): Response
+    public function search(Request $request, PostRepository $posts): Response
     {
         if (!$request->isXmlHttpRequest()) {
             return $this->render('blog/search.html.twig');
@@ -156,10 +156,10 @@ class BlogController extends Controller
 
         $query = $request->query->get('q', '');
         $limit = $request->query->get('l', 10);
-        $posts = $this->getDoctrine()->getRepository(Post::class)->findBySearchQuery($query, $limit);
+        $foundPosts = $posts->findBySearchQuery($query, $limit);
 
         $results = [];
-        foreach ($posts as $post) {
+        foreach ($foundPosts as $post) {
             $results[] = [
                 'title' => htmlspecialchars($post->getTitle()),
                 'date' => $post->getPublishedAt()->format('M d, Y'),
