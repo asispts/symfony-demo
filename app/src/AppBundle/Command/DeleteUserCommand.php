@@ -12,12 +12,12 @@
 namespace AppBundle\Command;
 
 use AppBundle\Entity\User;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * A command console that deletes users from the database.
@@ -36,14 +36,19 @@ use Symfony\Component\Console\Question\Question;
  *
  * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
  */
-class DeleteUserCommand extends ContainerAwareCommand
+class DeleteUserCommand extends Command
 {
     const MAX_ATTEMPTS = 5;
 
-    /**
-     * @var ObjectManager
-     */
+    private $io;
     private $entityManager;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        parent::__construct();
+
+        $this->entityManager = $em;
+    }
 
     /**
      * {@inheritdoc}
@@ -69,7 +74,10 @@ HELP
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $this->entityManager = $this->getContainer()->get('doctrine')->getManager();
+        // SymfonyStyle is an optional feature that Symfony provides so you can
+        // apply a consistent look to the commands of your application.
+        // See https://symfony.com/doc/current/console/style.html
+        $this->io = new SymfonyStyle($input, $output);
     }
 
     protected function interact(InputInterface $input, OutputInterface $output)
@@ -78,32 +86,18 @@ HELP
             return;
         }
 
-        $output->writeln('');
-        $output->writeln('Delete User Command Interactive Wizard');
-        $output->writeln('-----------------------------------');
-
-        $output->writeln([
-            '',
+        $this->io->title('Delete User Command Interactive Wizard');
+        $this->io->text([
             'If you prefer to not use this interactive wizard, provide the',
             'arguments required by this command as follows:',
             '',
             ' $ php bin/console app:delete-user username',
             '',
-        ]);
-
-        $output->writeln([
-            '',
             'Now we\'ll ask you for the value of all the missing command arguments.',
             '',
         ]);
 
-        $helper = $this->getHelper('question');
-
-        $question = new Question(' > <info>Username</info>: ');
-        $question->setValidator([$this, 'usernameValidator']);
-        $question->setMaxAttempts(self::MAX_ATTEMPTS);
-
-        $username = $helper->ask($input, $output, $question);
+        $username = $this->io->ask('Username', null, [$this, 'usernameValidator']);
         $input->setArgument('username', $username);
     }
 
@@ -128,8 +122,7 @@ HELP
         $this->entityManager->remove($user);
         $this->entityManager->flush();
 
-        $output->writeln('');
-        $output->writeln(sprintf('[OK] User "%s" (ID: %d, email: %s) was successfully deleted.', $user->getUsername(), $userId, $user->getEmail()));
+        $this->io->success(sprintf('User "%s" (ID: %d, email: %s) was successfully deleted.', $user->getUsername(), $userId, $user->getEmail()));
     }
 
     /**

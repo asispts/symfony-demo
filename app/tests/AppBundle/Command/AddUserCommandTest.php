@@ -26,6 +26,18 @@ class AddUserCommandTest extends KernelTestCase
         'full-name' => 'Chuck Norris',
     ];
 
+    protected function setUp()
+    {
+        exec('stty 2>&1', $output, $exitcode);
+        $isSttySupported = 0 === $exitcode;
+
+        $isWindows = '\\' === DIRECTORY_SEPARATOR;
+
+        if ($isWindows || !$isSttySupported) {
+            $this->markTestSkipped('`stty` is required to test this command.');
+        }
+    }
+
     /**
      * @dataProvider isAdminDataProvider
      *
@@ -103,7 +115,8 @@ class AddUserCommandTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $command = new AddUserCommand();
+        $container = self::$kernel->getContainer();
+        $command = new AddUserCommand($container->get('doctrine')->getManager(), $container->get('security.password_encoder'));
         $command->setApplication(new Application(self::$kernel));
 
         $commandTester = new CommandTester($command);

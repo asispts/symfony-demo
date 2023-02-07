@@ -23,12 +23,6 @@ namespace CodeExplorerBundle\Twig;
 class SourceCodeExtension extends \Twig_Extension
 {
     private $controller;
-    private $kernelRootDir;
-
-    public function __construct($kernelRootDir)
-    {
-        $this->kernelRootDir = $kernelRootDir;
-    }
 
     public function setController($controller)
     {
@@ -126,22 +120,16 @@ class SourceCodeExtension extends \Twig_Extension
         $codeLines = explode("\n", $code);
 
         $indentedLines = array_filter($codeLines, function ($lineOfCode) {
-            return '' === $lineOfCode || '    ' === substr($lineOfCode, 0, 4);
+            return '' === $lineOfCode || '    ' === mb_substr($lineOfCode, 0, 4);
         });
 
         if (count($indentedLines) === count($codeLines)) {
             $formattedCode = array_map(function ($lineOfCode) {
-                return substr($lineOfCode, 4);
+                return mb_substr($lineOfCode, 4);
             }, $codeLines);
             $formattedCode = implode("\n", $formattedCode);
         }
 
         return $formattedCode;
-    }
-
-    // the name of the Twig extension must be unique in the application
-    public function getName()
-    {
-        return 'code_explorer_source_code';
     }
 }
