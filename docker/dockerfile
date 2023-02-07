@@ -1,0 +1,20 @@
+FROM php:5.6-fpm-alpine
+
+ARG USERNAME=www-data
+ARG GROUPNAME=www-data
+ARG NEW_GROUP_ID=1000
+
+RUN if getent passwd ${USERNAME} > /dev/null; then deluser ${USERNAME}; fi &&\
+    if getent group ${GROUPNAME} > /dev/null; then delgroup ${GROUPNAME}; fi &&\
+    addgroup -g ${NEW_GROUP_ID} ${GROUPNAME} &&\
+    adduser -D -G ${GROUPNAME} ${USERNAME}
+
+RUN wget https://getcomposer.org/download/latest-2.2.x/composer.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer
+
+COPY docker/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY app /var/www/html
+RUN chown -R ${USERNAME}:${GROUPNAME} /var/www/html
+
+WORKDIR /var/www/html
+USER ${USERNAME}
+RUN composer install --prefer-dist --no-suggest

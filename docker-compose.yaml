@@ -1,0 +1,22 @@
+version: "3.9"
+name: symfony-demo
+
+services:
+  php.service:
+    container_name: symfony-demo_php
+    build:
+      context: .
+      dockerfile: docker/dockerfile
+    # volumes:
+    #   - ./app:/var/www/html
+
+  nginx.service:
+    container_name: symfony-demo_nginx
+    image: nginx:stable-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app/web:/var/www/html/web
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php.service
