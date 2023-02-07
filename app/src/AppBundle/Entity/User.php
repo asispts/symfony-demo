@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -32,6 +41,13 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @ORM\Column(type="string")
+     */
+    private $fullName;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(type="string", unique=true)
      */
     private $username;
@@ -60,6 +76,19 @@ class User implements UserInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param string $fullName
+     */
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
+    }
+
+    public function getFullName()
+    {
+        return $this->fullName;
     }
 
     public function getUsername()

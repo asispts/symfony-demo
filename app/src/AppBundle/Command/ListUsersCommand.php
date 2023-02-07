@@ -29,6 +29,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  *     $ php bin/console app:list-users
  *
  * See http://symfony.com/doc/current/cookbook/console/console_command.html
+ * For more advanced uses, commands can be defined as services too. See
+ * https://symfony.com/doc/current/console/commands_as_services.html
  *
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
@@ -93,7 +95,7 @@ HELP
 
         // Doctrine query returns an array of objects and we need an array of plain arrays
         $usersAsPlainArrays = array_map(function (User $user) {
-            return [$user->getId(), $user->getUsername(), $user->getEmail(), implode(', ', $user->getRoles())];
+            return [$user->getId(), $user->getFullName(), $user->getUsername(), $user->getEmail(), implode(', ', $user->getRoles())];
         }, $users);
 
         // In your console commands you should always use the regular output type,
@@ -107,7 +109,7 @@ HELP
 
         $table = new Table($bufferedOutput);
         $table
-            ->setHeaders(['ID', 'Username', 'Email', 'Roles'])
+            ->setHeaders(['ID', 'Full Name', 'Username', 'Email', 'Roles'])
             ->setRows($usersAsPlainArrays)
         ;
         $table->render();

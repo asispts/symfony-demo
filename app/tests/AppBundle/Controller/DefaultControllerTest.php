@@ -13,6 +13,7 @@ namespace Tests\AppBundle\Controller;
 
 use AppBundle\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Functional test that implements a "smoke test" of all the public and secure
@@ -35,11 +36,12 @@ class DefaultControllerTest extends WebTestCase
      */
     public function testPublicUrls($url)
     {
-        $client = self::createClient();
+        $client = static::createClient();
         $client->request('GET', $url);
 
-        $this->assertTrue(
-            $client->getResponse()->isSuccessful(),
+        $this->assertSame(
+            Response::HTTP_OK,
+            $client->getResponse()->getStatusCode(),
             sprintf('The %s public URL loads correctly.', $url)
         );
     }
@@ -53,12 +55,12 @@ class DefaultControllerTest extends WebTestCase
      */
     public function testPublicBlogPost()
     {
-        // the service container is always available via the client
-        $client = self::createClient();
+        $client = static::createClient();
+        // the service container is always available via the test client
         $blogPost = $client->getContainer()->get('doctrine')->getRepository(Post::class)->find(1);
         $client->request('GET', sprintf('/en/blog/posts/%s', $blogPost->getSlug()));
 
-        $this->assertTrue($client->getResponse()->isSuccessful());
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
     /**
@@ -70,14 +72,14 @@ class DefaultControllerTest extends WebTestCase
      */
     public function testSecureUrls($url)
     {
-        $client = self::createClient();
+        $client = static::createClient();
         $client->request('GET', $url);
 
-        $this->assertTrue($client->getResponse()->isRedirect());
-
+        $response = $client->getResponse();
+        $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
         $this->assertSame(
             'http://localhost/en/login',
-            $client->getResponse()->getTargetUrl(),
+            $response->getTargetUrl(),
             sprintf('The %s secure URL redirects to the login form.', $url)
         );
     }

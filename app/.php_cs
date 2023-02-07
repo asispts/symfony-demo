@@ -1,6 +1,15 @@
 #!/usr/bin/env php
 <?php
 
+$fileHeaderComment = <<<COMMENT
+This file is part of the Symfony package.
+
+(c) Fabien Potencier <fabien@symfony.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+COMMENT;
+
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
     ->exclude('var')
@@ -17,6 +26,7 @@ return PhpCsFixer\Config::create()
         '@Symfony' => true,
         '@Symfony:risky' => true,
         'array_syntax' => ['syntax' => 'short'],
+        'header_comment' => ['header' => $fileHeaderComment, 'separate' => 'both'],
         'no_useless_else' => true,
         'no_useless_return' => true,
         'ordered_imports' => true,
@@ -25,4 +35,5 @@ return PhpCsFixer\Config::create()
         'strict_comparison' => true,
     ])
     ->setFinder($finder)
+    ->setCacheFile(__DIR__.'/var/.php_cs.cache')
 ;
