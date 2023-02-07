@@ -22,7 +22,7 @@ USER ${USERNAME}
 # Fix dependencies issue with doctrine/migrations
 RUN composer config allow-plugins.symfony/flex true
 RUN composer req symfony/flex:^1.17 \
-    doctrine/doctrine-migrations-bundle:^1.3 -w
+    doctrine/doctrine-migrations-bundle:~1.3.0 -w
 
 # symfony/phpunit-bridge still can't fetch phpunit archive
 RUN composer req --dev symfony/phpunit-bridge:^4.1
