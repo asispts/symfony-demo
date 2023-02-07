@@ -16,7 +16,6 @@ use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Utils\Slugger;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +32,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * See http://knpbundles.com/keyword/admin
  *
  * @Route("/admin/post")
- * @Security("has_role('ROLE_ADMIN')")
+ * @IsGranted("ROLE_ADMIN")
  *
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
@@ -119,7 +118,7 @@ class BlogController extends AbstractController
     public function show(Post $post): Response
     {
         // This security check can also be performed
-        // using an annotation: @IsGranted("show", subject="post")
+        // using an annotation: @IsGranted("show", subject="post", message="Posts can only be shown to their authors.")
         $this->denyAccessUnlessGranted('show', $post, 'Posts can only be shown to their authors.');
 
         return $this->render('admin/blog/show.html.twig', [
