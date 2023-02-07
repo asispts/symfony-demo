@@ -18,3 +18,7 @@ RUN chown -R ${USERNAME}:${GROUPNAME} /var/www/html
 WORKDIR /var/www/html
 USER ${USERNAME}
 RUN composer install --prefer-dist --no-suggest
+
+# symfony/phpunit-bridge:^3.0 can't fetch phpunit v5.
+# Override with newer version
+RUN composer req --dev symfony/phpunit-bridge:^4.0
