@@ -19,9 +19,7 @@ WORKDIR /var/www/html
 USER ${USERNAME}
 
 # symfony/flex <1.17 is abandoned. Override with newer version
+# Fix dependencies issue with symfony/orm-pack
 RUN composer config allow-plugins.symfony/flex true
-RUN composer req symfony/flex:^1.17
-
-# symfony/phpunit-bridge:^3.0 can't fetch phpunit v5.
-# Override with newer version
-RUN composer req --dev symfony/phpunit-bridge:^4.0
+RUN composer req symfony/flex:^1.17 \
+    symfony/orm-pack:^2.0
