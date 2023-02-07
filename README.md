@@ -21,6 +21,14 @@ Because:
   then access the application in your browser at http://localhost:8080.
 
 ## Changelog
-  ### v1.0
+  ### [v1.1]
+  - `PHP: v5.6`
+  - `Symfony: v3.3`
+
+  ### [v1.0]
   - `PHP: v5.6`
   - `Symfony: v3.2`
+
+
+[v1.1]: https://github.com/asispts/symfony-demo/releases/tag/v1.1
+[v1.0]: https://github.com/asispts/symfony-demo/releases/tag/v1.0
