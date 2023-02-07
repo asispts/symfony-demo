@@ -29,15 +29,14 @@
         "symfony/monolog-bundle"               : "^3.0",
         "symfony/polyfill-apcu"                : "^1.0",
         "symfony/swiftmailer-bundle"           : "^2.3",
-        "symfony/symfony"                      : "^3.2",
-        "twig/extensions"                      : "^1.3",
+        "symfony/symfony"                      : "^3.3",
+        "twig/extensions"                      : "^1.5",
         "twig/twig"                            : "^1.28 || ^2.0",
         "white-october/pagerfanta-bundle"      : "^1.0"
     },
     "require-dev": {
-        "dama/doctrine-test-bundle"            : "^1.0",
+        "dama/doctrine-test-bundle"            : "^3.0",
         "friendsofphp/php-cs-fixer"            : "^2.0",
-        "phpunit/phpunit"                      : "^4.8 || ^5.0",
         "sensio/generator-bundle"              : "^3.0",
         "symfony/phpunit-bridge"               : "^3.0"
     },

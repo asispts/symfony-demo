@@ -12,16 +12,16 @@
 namespace AppBundle\Command;
 
 use AppBundle\Entity\User;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Helper\Table;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * A command console that lists all the existing users.
+ * A console command that lists all the existing users.
  *
  * To use this command, open a terminal window, enter into your project directory
  * and execute the following:
@@ -34,12 +34,20 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class ListUsersCommand extends ContainerAwareCommand
+class ListUsersCommand extends Command
 {
-    /**
-     * @var ObjectManager
-     */
     private $entityManager;
+    private $mailer;
+    private $emailSender;
+
+    public function __construct(EntityManagerInterface $em, \Swift_Mailer $mailer, $emailSender)
+    {
+        parent::__construct();
+
+        $this->entityManager = $em;
+        $this->mailer = $mailer;
+        $this->emailSender = $emailSender;
+    }
 
     /**
      * {@inheritdoc}
@@ -75,15 +83,6 @@ HELP
     }
 
     /**
-     * This method is executed before the the execute() method. It's main purpose
-     * is to initialize the variables used in the rest of the command methods.
-     */
-    protected function initialize(InputInterface $input, OutputInterface $output)
-    {
-        $this->entityManager = $this->getContainer()->get('doctrine')->getManager();
-    }
-
-    /**
      * This method is executed after initialize(). It usually contains the logic
      * to execute to complete this command task.
      */
@@ -95,33 +94,34 @@ HELP
 
         // Doctrine query returns an array of objects and we need an array of plain arrays
         $usersAsPlainArrays = array_map(function (User $user) {
-            return [$user->getId(), $user->getFullName(), $user->getUsername(), $user->getEmail(), implode(', ', $user->getRoles())];
+            return [
+                $user->getId(),
+                $user->getFullName(),
+                $user->getUsername(),
+                $user->getEmail(),
+                implode(', ', $user->getRoles()),
+            ];
         }, $users);
 
         // In your console commands you should always use the regular output type,
         // which outputs contents directly in the console window. However, this
-        // particular command uses the BufferedOutput type instead.
-        // The reason is that the table displaying the list of users can be sent
-        // via email if the '--send-to' option is provided. Instead of complicating
-        // things, the BufferedOutput allows to get the command output and store
-        // it in a variable before displaying it.
+        // command uses the BufferedOutput type instead, to be able to get the output
+        // contents before displaying them. This is needed because the command allows
+        // to send the list of users via email with the '--send-to' option
         $bufferedOutput = new BufferedOutput();
+        $io = new SymfonyStyle($input, $bufferedOutput);
+        $io->table(
+            ['ID', 'Full Name', 'Username', 'Email', 'Roles'],
+            $usersAsPlainArrays
+        );
 
-        $table = new Table($bufferedOutput);
-        $table
-            ->setHeaders(['ID', 'Full Name', 'Username', 'Email', 'Roles'])
-            ->setRows($usersAsPlainArrays)
-        ;
-        $table->render();
-
-        // instead of displaying the table of users, store it in a variable
-        $tableContents = $bufferedOutput->fetch();
+        // instead of just displaying the table of users, store its contents in a variable
+        $usersAsATable = $bufferedOutput->fetch();
+        $output->write($usersAsATable);
 
         if (null !== $email = $input->getOption('send-to')) {
-            $this->sendReport($tableContents, $email);
+            $this->sendReport($usersAsATable, $email);
         }
-
-        $output->writeln($tableContents);
     }
 
     /**
@@ -133,15 +133,13 @@ HELP
     private function sendReport($contents, $recipient)
     {
         // See https://symfony.com/doc/current/cookbook/email/email.html
-        $mailer = $this->getContainer()->get('mailer');
-
-        $message = $mailer->createMessage()
+        $message = $this->mailer->createMessage()
             ->setSubject(sprintf('app:list-users report (%s)', date('Y-m-d H:i:s')))
-            ->setFrom($this->getContainer()->getParameter('app.notifications.email_sender'))
+            ->setFrom($this->emailSender)
             ->setTo($recipient)
             ->setBody($contents, 'text/plain')
         ;
 
-        $mailer->send($message);
+        $this->mailer->send($message);
     }
 }

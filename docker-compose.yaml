@@ -7,8 +7,6 @@ services:
     build:
       context: .
       dockerfile: docker/dockerfile
-    # volumes:
-    #   - ./app:/var/www/html
 
   nginx.service:
     container_name: symfony-demo_nginx
