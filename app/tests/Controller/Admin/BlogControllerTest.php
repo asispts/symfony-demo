@@ -19,11 +19,11 @@ use Symfony\Component\HttpFoundation\Response;
  * Functional test for the controllers defined inside the BlogController used
  * for managing the blog in the backend.
  *
- * See https://symfony.com/doc/current/book/testing.html#functional-tests
+ * See https://symfony.com/doc/current/testing.html#functional-tests
  *
  * Whenever you test resources protected by a firewall, consider using the
  * technique explained in:
- * https://symfony.com/doc/current/cookbook/testing/http_authentication.html
+ * https://symfony.com/doc/current/testing/http_authentication.html
  *
  * Execute the application tests using this command (requires PHPUnit to be installed):
  *
@@ -43,7 +43,8 @@ class BlogControllerTest extends WebTestCase
         ]);
 
         $client->request($httpMethod, $url);
-        $this->assertSame(Response::HTTP_FORBIDDEN, $client->getResponse()->getStatusCode());
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function getUrlsForRegularUsers()
@@ -62,11 +63,10 @@ class BlogControllerTest extends WebTestCase
         ]);
 
         $crawler = $client->request('GET', '/en/admin/post/');
-        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
 
-        $this->assertGreaterThanOrEqual(
-            1,
-            $crawler->filter('body#admin_post_index #main tbody tr')->count(),
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorExists(
+            'body#admin_post_index #main tbody tr',
             'The backend homepage displays all the available posts.'
         );
     }
@@ -95,7 +95,7 @@ class BlogControllerTest extends WebTestCase
         ]);
         $client->submit($form);
 
-        $this->assertSame(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
+        $this->assertResponseRedirects('/en/admin/post/', Response::HTTP_FOUND);
 
         $post = $client->getContainer()->get('doctrine')->getRepository(Post::class)->findOneBy([
             'title' => $postTitle,
@@ -103,6 +103,31 @@ class BlogControllerTest extends WebTestCase
         $this->assertNotNull($post);
         $this->assertSame($postSummary, $post->getSummary());
         $this->assertSame($postContent, $post->getContent());
+    }
+
+    public function testAdminNewDuplicatedPost()
+    {
+        $postTitle = 'Blog Post Title '.mt_rand();
+        $postSummary = $this->generateRandomString(255);
+        $postContent = $this->generateRandomString(1024);
+
+        $client = static::createClient([], [
+            'PHP_AUTH_USER' => 'jane_admin',
+            'PHP_AUTH_PW' => 'kitten',
+        ]);
+        $crawler = $client->request('GET', '/en/admin/post/new');
+        $form = $crawler->selectButton('Create post')->form([
+            'post[title]' => $postTitle,
+            'post[summary]' => $postSummary,
+            'post[content]' => $postContent,
+        ]);
+        $client->submit($form);
+
+        // post titles must be unique, so trying to create the same post twice should result in an error
+        $client->submit($form);
+
+        $this->assertSelectorTextSame('form .form-group.has-error label', 'Title');
+        $this->assertSelectorTextContains('form .form-group.has-error .help-block', 'This title was already used in another blog post, but they must be unique.');
     }
 
     public function testAdminShowPost()
@@ -113,7 +138,7 @@ class BlogControllerTest extends WebTestCase
         ]);
         $client->request('GET', '/en/admin/post/1');
 
-        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertResponseIsSuccessful();
     }
 
     /**
@@ -136,7 +161,7 @@ class BlogControllerTest extends WebTestCase
         ]);
         $client->submit($form);
 
-        $this->assertSame(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
+        $this->assertResponseRedirects('/en/admin/post/1/edit', Response::HTTP_FOUND);
 
         /** @var Post $post */
         $post = $client->getContainer()->get('doctrine')->getRepository(Post::class)->find(1);
@@ -158,7 +183,7 @@ class BlogControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/en/admin/post/1');
         $client->submit($crawler->filter('#delete-form')->form());
 
-        $this->assertSame(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
+        $this->assertResponseRedirects('/en/admin/post/', Response::HTTP_FOUND);
 
         $post = $client->getContainer()->get('doctrine')->getRepository(Post::class)->find(1);
         $this->assertNull($post);
