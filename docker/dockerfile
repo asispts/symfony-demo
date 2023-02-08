@@ -24,7 +24,7 @@ WORKDIR /var/www/html
 USER ${USERNAME}
 
 # symfony/flex <1.17 is abandoned. Override with newer version
-# Fix dependencies issue with doctrine/doctrine-migrations-bundle
+# Fix dependencies issue with ocramius/package-versions
 RUN composer config allow-plugins.symfony/flex true
 RUN composer req symfony/flex:^1.17 \
-    doctrine/doctrine-migrations-bundle:^2.0 -w
+    doctrine/orm:^2.5.11
