@@ -14,7 +14,7 @@ RUN apk add --update --no-cache $PHPIZE_DEPS
 RUN apk add --no-cache icu-dev \
     && docker-php-ext-install intl
 
-RUN wget https://getcomposer.org/download/latest-2.2.x/composer.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer
+RUN wget https://getcomposer.org/composer-stable.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 
 COPY docker/php.ini /usr/local/etc/php/conf.d/php.ini
 COPY app /var/www/html
