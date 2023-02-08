@@ -21,6 +21,10 @@ Because:
   then access the application in your browser at http://localhost:8080.
 
 ## Changelog
+  ### [v7.0]
+  - `PHP: v8.1`
+  - `Symfony: v6.1`
+
   ### [v6.0]
   - `PHP: v8.0`
   - `Symfony: v6.0`
@@ -74,6 +78,7 @@ Because:
   - `Symfony: v3.2`
 
 
+[v7.0]: https://github.com/asispts/symfony-demo/releases/tag/v7.0
 [v6.0]: https://github.com/asispts/symfony-demo/releases/tag/v6.0
 [v5.1]: https://github.com/asispts/symfony-demo/releases/tag/v5.1
 [v5.0]: https://github.com/asispts/symfony-demo/releases/tag/v5.0
