@@ -52,24 +52,15 @@ class AddUserCommand extends Command
     // so it will be instantiated only when the command is actually called.
     protected static $defaultName = 'app:add-user';
 
-    /**
-     * @var SymfonyStyle
-     */
-    private $io;
+    private SymfonyStyle $io;
 
-    private $entityManager;
-    private $passwordHasher;
-    private $validator;
-    private $users;
-
-    public function __construct(EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, Validator $validator, UserRepository $users)
-    {
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private UserPasswordHasherInterface $passwordHasher,
+        private Validator $validator,
+        private UserRepository $users
+    ) {
         parent::__construct();
-
-        $this->entityManager = $em;
-        $this->passwordHasher = $passwordHasher;
-        $this->validator = $validator;
-        $this->users = $users;
     }
 
     /**
@@ -190,7 +181,7 @@ class AddUserCommand extends Command
         $user->setEmail($email);
         $user->setRoles([$isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER']);
 
-        // See https://symfony.com/doc/current/security.html#c-encoding-passwords
+        // See https://symfony.com/doc/5.4/security.html#registering-the-user-hashing-passwords
         $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
         $user->setPassword($hashedPassword);
 
