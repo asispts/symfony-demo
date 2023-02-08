@@ -47,7 +47,7 @@ class CheckRequirementsSubscriber implements EventSubscriberInterface
             // Errors are one of the events defined by the Console. See the
             // rest here: https://symfony.com/doc/current/components/console/events.html
             ConsoleEvents::ERROR => 'handleConsoleError',
-            // See: http://api.symfony.com/master/Symfony/Component/HttpKernel/KernelEvents.html
+            // See: https://symfony.com/doc/current/components/http_kernel.html#component-http-kernel-event-table
             KernelEvents::EXCEPTION => 'handleKernelException',
         ];
     }
@@ -75,7 +75,7 @@ class CheckRequirementsSubscriber implements EventSubscriberInterface
      */
     public function handleKernelException(ExceptionEvent $event): void
     {
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
         // Since any exception thrown during a Twig template rendering is wrapped
         // in a Twig_Error_Runtime, we must get the original exception.
         $previousException = $exception->getPrevious();
