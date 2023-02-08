@@ -24,7 +24,7 @@
         <div class="well">{{ 'post.no_posts_found'|trans }}</div>
     {% endfor %}
 
-    {% if paginator.haveToPaginate %}
+    {% if paginator.hasToPaginate %}
         <div class="navigation text-center">
             <ul class="pagination">
                 {% if paginator.hasPreviousPage %}
@@ -33,7 +33,7 @@
                     <li class="prev disabled"><span><i class="fa fw fa-arrow-left"></i> Previous</span></li>
                 {% endif %}
 
-                {% for i in 1..paginator.numPages %}
+                {% for i in 1..paginator.lastPage %}
                     {% if i == paginator.currentPage %}
                         <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
                     {% else %}
@@ -42,7 +42,7 @@
                 {% endfor %}
 
                 {% if paginator.hasNextPage %}
-                    <li class="prev"><a href="{{ path('blog_index_paginated', {page: paginator.nextPage}) }}" rel="next">Next <i class="fa fw fa-arrow-right"></i></a></li>
+                    <li class="next"><a href="{{ path('blog_index_paginated', {page: paginator.nextPage}) }}" rel="next">Next <i class="fa fw fa-arrow-right"></i></a></li>
                 {% else %}
                     <li class="next disabled"><span>Next <i class="fa fw fa-arrow-right"></i></span></li>
                 {% endif %}
