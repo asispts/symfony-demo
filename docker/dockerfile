@@ -16,7 +16,6 @@ RUN apk add --no-cache icu-dev \
 
 RUN wget https://getcomposer.org/composer-stable.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 
-COPY docker/php.ini /usr/local/etc/php/conf.d/php.ini
 COPY app /var/www/html
 RUN chown -R ${USERNAME}:${GROUPNAME} /var/www/html
 
