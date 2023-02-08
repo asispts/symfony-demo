@@ -36,14 +36,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Post
 {
     /**
-     * Use constants to define configuration options that rarely change instead
-     * of specifying them under parameters section in config/services.yaml file.
-     *
-     * See https://symfony.com/doc/current/best_practices.html#use-constants-to-define-options-that-rarely-change
-     */
-    public const NUM_ITEMS = 10;
-
-    /**
      * @var int
      *
      * @ORM\Id
@@ -101,7 +93,7 @@ class Post
     private $author;
 
     /**
-     * @var Comment[]|ArrayCollection
+     * @var Comment[]|Collection
      *
      * @ORM\OneToMany(
      *      targetEntity="Comment",
@@ -114,7 +106,7 @@ class Post
     private $comments;
 
     /**
-     * @var Tag[]|ArrayCollection
+     * @var Tag[]|Collection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", cascade={"persist"})
      * @ORM\JoinTable(name="symfony_demo_post_tag")
