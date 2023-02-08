@@ -56,9 +56,8 @@ class PostRepository extends ServiceEntityRepository
     /**
      * @return Post[]
      */
-    public function findBySearchQuery(string $rawQuery, int $limit = Post::NUM_ITEMS): array
+    public function findBySearchQuery(string $query, int $limit = Post::NUM_ITEMS): array
     {
-        $query = $this->sanitizeSearchQuery($rawQuery);
         $searchTerms = $this->extractSearchTerms($query);
 
         if (0 === \count($searchTerms)) {
@@ -82,20 +81,14 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * Removes all non-alphanumeric characters except whitespaces.
-     */
-    private function sanitizeSearchQuery(string $query): string
-    {
-        return trim(preg_replace('/[[:space:]]+/', ' ', $query));
-    }
-
-    /**
-     * Splits the search query into terms and removes the ones which are irrelevant.
+     * Transforms the search string into an array of search terms.
      */
     private function extractSearchTerms(string $searchQuery): array
     {
+        $searchQuery = trim(preg_replace('/[[:space:]]+/', ' ', $searchQuery));
         $terms = array_unique(explode(' ', $searchQuery));
 
+        // ignore the search terms that are too short
         return array_filter($terms, function ($term) {
             return 2 <= mb_strlen($term);
         });
