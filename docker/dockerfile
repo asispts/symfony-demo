@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.3-fpm-alpine
 
 ARG USERNAME=www-data
 ARG GROUPNAME=www-data
@@ -16,7 +16,6 @@ RUN apk add --no-cache icu-dev \
 
 RUN wget https://getcomposer.org/composer-stable.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 
-COPY docker/php.ini /usr/local/etc/php/conf.d/php.ini
 COPY app /var/www/html
 RUN chown -R ${USERNAME}:${GROUPNAME} /var/www/html
 
@@ -24,5 +23,6 @@ WORKDIR /var/www/html
 USER ${USERNAME}
 
 # symfony/flex <1.17 is abandoned. Override with newer version
+RUN composer config allow-plugins.symfony/runtime true
 RUN composer config allow-plugins.symfony/flex true
 RUN composer req symfony/flex:^1.17

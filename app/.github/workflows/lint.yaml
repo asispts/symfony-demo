@@ -1,6 +1,10 @@
 name: "Lint"
 
-on: [push, pull_request]
+on:
+    pull_request:
+    push:
+        branches:
+            - main
 
 env:
     fail-fast: true
@@ -45,15 +49,12 @@ jobs:
               uses: actions/cache@v2.1.2
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-${{ matrix.php-version }}-composer-${{ hashFiles('composer.json') }}
+                  key: ${{ runner.os }}-${{ matrix.php-version }}-composer-${{ hashFiles('composer.lock') }}
                   restore-keys: ${{ runner.os }}-${{ matrix.php-version }}-composer-
 
-            - name: "Require symfony/flex"
-              run: composer global require --no-progress --no-scripts --no-plugins symfony/flex dev-main
-
-            - name: "Composer update"
+            - name: "Composer install"
               id: install
-              run: composer update --no-scripts
+              run: composer install --no-interaction --no-progress
 
             - name: Lint YAML files
               if: always() && steps.install.outcome == 'success'
@@ -69,7 +70,7 @@ jobs:
 
             - name: Lint Parameters and Services
               if: always() && steps.install.outcome == 'success'
-              run: ./bin/console lint:container
+              run: ./bin/console lint:container --no-debug
 
             - name: Lint Doctrine entities
               if: always() && steps.install.outcome == 'success'
