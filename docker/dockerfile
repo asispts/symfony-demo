@@ -22,7 +22,4 @@ RUN chown -R ${USERNAME}:${GROUPNAME} /var/www/html
 WORKDIR /var/www/html
 USER ${USERNAME}
 
-# symfony/flex <1.17 is abandoned. Override with newer version
-RUN composer config allow-plugins.symfony/runtime true
-RUN composer config allow-plugins.symfony/flex true
-RUN composer req symfony/flex:^1.17
+RUN composer install --prefer-dist
