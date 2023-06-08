@@ -1,24 +1,24 @@
 # Dockerize Symfony Demo Application
 
-This is just a repository to dockerize every version of [symfony/demo](https://github.com/symfony/demo) application. Nothing special.
+This repository provides a Dockerized version of [symfony/demo](https://github.com/symfony/demo) application for every version. It allows you to run, test, and view different versions of `symfony/demo` without affecting your system.
 
 ## Why?
 Because:
   1. All of my projects use `docker`,
-  2. I don't have any installed web server in my computer,
-  3. I know there is a `symfony` binary app, but I don't want to install it globally,
-  4. You can run/test/view every version of `symfony/demo` without polluting your system.
+  2. I don't have a web server installed on my local machine,
+  3. While `symfony` binary app is available, I prefer not to install it globally,
+  4. This repository enables you to run, test, and view every version of `symfony/demo` without polluting your system.
 
 ## Requirement
   - `docker`
   - `docker-compose` (optional)
 
 ## Usage
-  There's no need to configure anything to run the application. Run this command
+  There is no need to configure anything to run the application. Simply run the following command:
   ```
   docker-compose up -d
   ```
-  then access the application in your browser at http://localhost:8080.
+  then, access the application in your browser by visiting http://localhost:8080.
 
 ## Changelog
   ### [v7.0]
